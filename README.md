@@ -9,7 +9,7 @@ PHMC HMS simplifies real estate transactions by providing a comprehensive suite 
 ## Features 🚀
 
 - **Property Listings**: Users can list, browse, and manage properties. They can post their properties with multiple images and detailed descriptions.
-- **Service Marketplace**: Access a wide range of house-related services including maintenance and renovations.
+- **Service Marketplace**: Access a wide range of house-related services, including maintenance and renovations.
 - **Booking System**: Users can schedule services directly through the platform, choosing services for their properties according to their preferred time slots.
 - **User Authentication**: Users can sign in or register to access personalized features, including listing properties and contacting sellers.
 - **Interactive Contact System**: After signing in, interested buyers can directly contact property sellers through the platform, enhancing user interaction and transaction efficiency.
@@ -29,7 +29,7 @@ Access the live version of the PHMC Housing Management System:
 ## Contact 📧
 
 - Yash Singh - yash22589@iiitd.ac.in
-- Project Link: [https://github.com/yourusername/PHMC-HMS](https://github.com/yourusername/PHMC-HMS)
+- Project Link: [https://github.com/yourusername/PHMC-HMS](https://github.com/YSULTRA/Prime-House-Maintenance)]
 
 ---
 
