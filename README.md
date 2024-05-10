@@ -1,6 +1,6 @@
 # Prime House Maintenance Corporation (PHMC) Housing Management System (HMS) 🏠
 
-Welcome to the official GitHub repository of the Prime House Maintenance Corporation (PHMC) Housing Management System (HMS) 🌐. This robust web-based platform is designed to streamline interactions between property owners, service providers, and potential renters or buyers, enhancing real estate management through technology. Developed for CSE202: Fundamentals of Database Management Systems.
+Welcome to the official GitHub repository of the Prime House Maintenance Corporation (PHMC) Housing Management System (HMS)[Prime House Maintenance HMS](http://tiny.cc/PrimeHouseMaintenance) 🌐. This robust web-based platform is designed to streamline interactions between property owners, service providers, and potential renters or buyers, enhancing real estate management through technology. Developed for CSE202: Fundamentals of Database Management Systems.
 
 ## Project Overview 📋
 
