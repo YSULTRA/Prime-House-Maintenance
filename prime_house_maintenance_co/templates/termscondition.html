@@ -1,0 +1,59 @@
+{% extends 'navbar.html' %} {% load static %} {% block content %}
+<div class="container my-5">
+  <div
+    class="card mb-3 border-secondary"
+    style="max-width: 800px; margin: auto"
+  >
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img
+          src="{% static 'img/terms.jpg' %}"
+          class="img-fluid rounded-start"
+          alt="Terms and Conditions Image"
+          style="height: 100%; width: 100%; object-fit: cover"
+        />
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h1 class="card-title text-center">Terms and Conditions</h1>
+          <p class="card-text">
+            Welcome to our Terms and Conditions page. These terms and conditions
+            outline the rules and regulations for the use of our website.
+          </p>
+
+          <h2>Usage of Website</h2>
+          <p>
+            By accessing this website, you agree to comply with these terms and
+            conditions.
+          </p>
+          <p>We collect various types of information, including:</p>
+          <ul style="list-style-type: square; padding-left: 20px">
+            <li>
+              Personal Information: such as your name, email address, and phone
+              number, which you provide voluntarily when contacting us or
+              registering for an account.
+            </li>
+            <li>
+              Usage Data: information about your browsing activity on our
+              website, including IP address, browser type, pages visited, and
+              time spent on each page.
+            </li>
+            <li>
+              Cookies: small text files stored on your device that help us
+              improve your browsing experience and analyze website traffic.
+            </li>
+          </ul>
+
+          <!-- Other sections of Terms and Conditions -->
+
+          <h2>Contact Us</h2>
+          <p>
+            If you have any questions about our Terms and Conditions, please
+            contact us.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

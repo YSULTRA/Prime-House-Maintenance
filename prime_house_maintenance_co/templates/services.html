@@ -1,0 +1,63 @@
+{%extends 'navbar.html'%} {%load static%} {%block content%}
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Our Services</h1>
+        <p class="lead text-muted">
+          Discover our comprehensive range of services tailored to meet your
+          needs and exceed your expectations. Whether it's routine maintenance
+          or specialized solutions, we're here to assist you every step of the
+          way.
+        </p>
+        <p>
+          <a href="#services-section" class="btn btn-primary my-2"
+            >Explore Services</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div id="services-section" class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <h2
+        class="display-1 py-5 my-1"
+        style="font-weight: bold; text-align: left"
+      >
+        Our Services
+      </h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for ser in services %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <img
+              src="{{ ser.image.url }}"
+              class="bd-placeholder-img card-img-top"
+              width="100%"
+              height="225"
+              alt="{{ ser.ServiceName }}"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ ser.ServiceName }}</h5>
+              <p class="card-text">{{ ser.Description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a
+                    href="{% url 'service-page' pk=ser.ServiceID %}"
+                    class="btn btn-sm btn-outline-secondary"
+                    >View</a
+                  >
+
+                  <span class="mx-3 fw-bold">$ {{ ser.Price }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+{%endblock%}

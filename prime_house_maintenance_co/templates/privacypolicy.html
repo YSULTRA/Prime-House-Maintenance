@@ -1,0 +1,56 @@
+{% extends 'navbar.html' %} {% load static %} {% block content %}
+<div class="container my-5">
+  <div
+    class="card mb-3 border-secondary"
+    style="max-width: 800px; margin: auto"
+  >
+    <div class="row g-0 ">
+      <div class="col-md-6">
+        <img
+          src="{% static 'img/privacy.jpg' %}"
+          class="img-fluid rounded-start"
+          alt="Privacy Policy Image"
+          style="height: 100%; width: 100%; object-fit: cover"
+        />
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h1 class="card-title text-center">Privacy Policy</h1>
+          <p class="card-text">
+            Welcome to our Privacy Policy page. This policy explains how we
+            collect, use, and safeguard your personal information when you visit
+            our website.
+          </p>
+
+          <h2>Information We Collect</h2>
+          <p>We collect various types of information, including:</p>
+          <ul style="list-style-type: square; padding-left: 20px">
+            <li>
+              Personal Information: such as your name, email address, and phone
+              number, which you provide voluntarily when contacting us or
+              registering for an account.
+            </li>
+            <li>
+              Usage Data: information about your browsing activity on our
+              website, including IP address, browser type, pages visited, and
+              time spent on each page.
+            </li>
+            <li>
+              Cookies: small text files stored on your device that help us
+              improve your browsing experience and analyze website traffic.
+            </li>
+          </ul>
+
+          <!-- Other sections of Privacy Policy -->
+
+          <h2>Contact Us</h2>
+          <p>
+            If you have any questions about our Privacy Policy, please contact
+            us.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,539 @@
+{% extends 'navbar.html' %} {% load static %} {% block content %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  rel="stylesheet"
+  link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"
+  link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+/>
+
+<style>
+  /* Property Images Carousel */
+  .carousel-item img {
+    max-height: 400px; /* Adjust as needed */
+  }
+
+  /* Custom Card Styling */
+  .custom-card {
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 1.2rem;
+  }
+
+  .carousel-image {
+    object-fit: cover;
+    height: 100%;
+    max-height: 100%;
+  }
+  .carousel-item img {
+    max-height: 600px; /* Adjust the max-height as needed */
+  }
+  #carouselExampleIndicators {
+    border-radius: 5px; /* Adjust the border-radius as needed */
+    overflow: hidden; /* Ensures the images are clipped to match the border radius */
+  }
+
+  /* Progress Bar Styling */
+  .progress {
+    margin-top: 20px;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* Ensure the overlay appears above other content */
+  }
+
+  .modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1001; /* Ensure the modal appears above the overlay */
+  }
+  .custom-width {
+    width: 500px; /* Set your desired width */
+    /* Add any additional styling as needed */
+  }
+  .modal-header .btn-close {
+    margin-left: 230px; /* Adjust the margin as needed */
+  }
+
+</style>
+
+<div class="container my-5">
+  <!-- Property Images Carousel -->
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide my-5"
+    data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {% for image in property.images.all %}
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="{{ forloop.counter0 }}"
+        {%
+        if
+        forloop.first
+        %}
+        class="active"
+        {%
+        endif
+        %}
+        aria-label="Slide {{ forloop.counter }}"
+      ></button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for image in property.images.all %}
+      <div class="carousel-item {% if forloop.first %} active {% endif %}">
+        <img
+          src="{{ image.image.url }}"
+          class="d-block w-100 carousel-image"
+          alt="Property Image"
+        />
+      </div>
+      {% endfor %}
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+  <!-- Property Description Card -->
+  <div class="custom-card">
+    <div class="card">
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="card-title">Property Description</h5>
+          <p class="card-text">
+            {{ property.Description }}<br />
+            By Owner Name:
+            <span class="text-info">{{ property.OwnerID }}</span>
+          </p>
+        </div>
+
+        <div class="text-end mx-3">
+          <h5 class="card-title mx-3">Price</h5>
+          <p class="card-text">
+            <i class="fas fa-dollar-sign me-1"></i>
+            <span class="me-3">{{ property.Price }}</span>
+          </p>
+          {% if proposal_sent%}
+          <button class="btn btn-success btn-block" type="button" style="font-size:18px;" id="contactSellerButton" disabled>Contacted Seller</button>
+
+          {%else%}
+          <button class="btn btn-primary btn-block" type="button" style="font-size:18px;" id="contactSellerButton">Contact Seller</button>
+
+          {%endif%}
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Location Information Card -->
+  <div class="custom-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Location Information</h5>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="row">Address</th>
+              <td>{{ location.StreetAddress }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Street Number</th>
+              <td>{{ location.StreetNumber }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Land Number</th>
+              <td>{{ location.LandNumber }}</td>
+            </tr>
+            <tr>
+              <th scope="row">State</th>
+              <td>{{ location.State }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Country</th>
+              <td>{{ location.Country }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Zip Code</th>
+              <td>{{ location.ZipCode }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Latitude</th>
+              <td>{{ location.Latitude }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Longitude</th>
+              <td>{{ location.Longitude }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% if user_id %}
+  <!-- Owner Details Card -->
+  <div class="custom-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Owner Details</h5>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ property.OwnerID }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Contact Number 1</th>
+              <td>{{ property.OwnerID.ContactNumber1 }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Contact Number 2</th>
+              <td>{{ property.OwnerID.ContactNumber2 }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td>{{ property.OwnerID.Email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <!-- Owner Details Card (Blurred) -->
+  <div class="custom-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Owner Details</h5>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ property.OwnerID }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Contact Number 1</th>
+              <td id="blurredContact1">**********</td>
+            </tr>
+            <tr>
+              <th scope="row">Contact Number 2</th>
+              <td id="blurredContact2">**********</td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td id="blurredEmail">**********</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Blurring email and contact numbers
+    const blurredEmailElement = document.getElementById('blurredEmail');
+    const blurredContact1Element = document.getElementById('blurredContact1');
+    const blurredContact2Element = document.getElementById('blurredContact2');
+
+    blurredEmailElement.textContent = '**********';
+    blurredContact1Element.textContent = '**********';
+    blurredContact2Element.textContent = '**********';
+  </script>
+  {% endif %}
+
+  {% comment %} More Properties {% endcomment %}
+  <div>
+    <h2 class="display-6 py-5" style="font-weight: bold; text-align: left;">Some More Properties</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for prop in all|slice:":3" %} {% if prop.OwnerID != user %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <div
+              id="carouselExampleControls{{ prop.PropertyID }}"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                {% for image in prop.images.all %}
+                <div
+                  class="carousel-item {% if forloop.first %}active{% endif %}"
+                >
+                  <img
+                    src="{{ image.image.url }}"
+                    class="d-block w-100"
+                    style="object-fit: cover; width: 100%; height: 300px"
+                    alt="House Image"
+                  />
+                </div>
+                {% endfor %}
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleControls{{ prop.PropertyID }}"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleControls{{ prop.PropertyID }}"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">${{ prop.Price }}</h5>
+              <p class="card-text">{{ prop.Description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a
+                    href="{% url 'product-page' prop.PropertyID %}"
+                    class="btn btn-sm btn-outline-secondary"
+                    >View</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        var scroll = window.scrollY;
+        var height = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = (scroll / height) * 100;
+        document.getElementById("progress-bar").style.width = progress + "%";
+      });
+      document.addEventListener('DOMContentLoaded', function () {
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Get input values
+          const name = document.getElementById('nameInput').value;
+          const number = document.getElementById('numberInput').value;
+
+          // Example: Validate inputs (you can add more validation logic)
+          if (!name || !number) {
+            alert('Please fill in all fields.');
+            return;
+          }
+
+          // Example: Send data to server (you can replace this with your own logic)
+          // Here, you can perform AJAX request or any other method to send the data to the server
+          // For demonstration purposes, we'll log the data to the console
+          console.log('Name:', name);
+          console.log('Number:', number);
+
+          // Close the modal after form submission
+          const modal = new bootstrap.Modal(document.getElementById('modalContactSeller'));
+          modal.hide();
+
+          // Reset the form
+          contactForm.reset();
+        });
+      });
+    </script>
+  </div>
+
+  <!-- Modal for non-logged-in users -->
+  <div class="overlay" id="overlayNonLoggedIn">
+    <div class="modal-container custom-width">
+      <div class="modal-header">
+        <h1 class="fw-bold mb-0 fs-2">Login/Register</h1>
+        <button type="button" class="btn-close" id="closeModalNonLoggedIn"></button>
+      </div>
+      <div class="modal-body my-3" style="font-family: 'Open Sans', sans-serif;">
+        <p>Please <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to contact the seller.</p>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal for signing up -->
+<div class="overlay" id="overlay">
+  <div class="modal-container custom-width">
+    <div class="modal-header">
+      <h1 class="fw-bold mb-0 fs-2">Contact Seller</h1>
+      <button type="button" class="btn-close" id="closeModal"></button>
+    </div>
+    <div class="modal-body my-3" style="font-family: 'Open Sans', sans-serif;">
+      <form id="contactForm" action="/property/{{ property.PropertyID }}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="nameInput" class="form-label">Your Name</label>
+          <input type="text" class="form-control" id="nameInput" name="name" placeholder="Enter your name">
+        </div>
+        <div class="mb-3">
+          <label for="numberInput" class="form-label">Your Phone Number</label>
+          <input type="text" class="form-control" id="numberInput" name="phone_number" placeholder="Enter your phone number">
+        </div>
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">Your Email</label>
+          <input type="email" class="form-control" id="emailInput" name="email" placeholder="Enter your email">
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" value="" id="termsCheckbox" name="terms_agreed">
+          <label class="form-check-label" for="termsCheckbox">
+            I agree to the terms and conditions
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" value="" id="privacyCheckbox" name="privacy_agreed">
+          <label class="form-check-label" for="privacyCheckbox">
+            I agree to the privacy policy
+          </label>
+        </div>
+        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const contactSellerButton = document.getElementById('contactSellerButton');
+        const overlay = document.getElementById('overlay');
+        const overlayNonLoggedIn = document.getElementById('overlayNonLoggedIn');
+        const closeModal = document.getElementById('closeModal');
+        const closeModalNonLoggedIn = document.getElementById('closeModalNonLoggedIn');
+
+        contactSellerButton.addEventListener('click', function () {
+            {% if user_id %}
+                overlay.style.display = 'block'; // Show the logged-in modal
+            {% else %}
+                overlayNonLoggedIn.style.display = 'block'; // Show the non-logged-in modal
+            {% endif %}
+
+            // Disable the button after it's been clicked
+            contactSellerButton.disabled = true;
+        });
+
+        closeModal.addEventListener('click', function () {
+            overlay.style.display = 'none'; // Hide the logged-in modal
+        });
+
+        closeModalNonLoggedIn.addEventListener('click', function () {
+            overlayNonLoggedIn.style.display = 'none'; // Hide the non-logged-in modal
+        });
+
+        // Initially hide both overlays
+        overlay.style.display = 'none';
+        overlayNonLoggedIn.style.display = 'none';
+
+        // Handle form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('nameInput').value;
+            const numberInput = document.getElementById('numberInput').value;
+            const emailInput = document.getElementById('emailInput').value;
+
+            if (nameInput && numberInput && emailInput) {
+                // Here you can perform any additional logic, like sending the form data to the server
+                // For now, let's just display a popup message
+                alert('Your proposal of interest in the property has been sent to the seller.');
+
+                // Send the form data to the server using a POST request
+                const formData = new FormData(contactForm);
+                fetch('/property/{{ property.PropertyID }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    // Optionally, you can handle the response data here
+                })
+                .catch(error => {
+                    console.error('There was a problem sending the form data:', error);
+                    // Handle error if needed
+                });
+
+                // Optionally, you can hide the modal after successful submission
+                overlay.style.display = 'none';
+
+                // Change button text and color
+                contactSellerButton.textContent = 'Contacted Seller';
+                contactSellerButton.className = 'btn btn-success btn-block';
+                contactSellerButton.style.backgroundColor = '#28a745';
+                contactSellerButton.style.borderColor = '#28a745';
+            } else {
+                alert('Please fill in all the fields.');
+            }
+        });
+        {% if user %}
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+    const numberInput = document.getElementById('numberInput');
+
+    nameInput.value = '{{ user.FirstName }} {{ user.LastName }}';
+    emailInput.value = '{{ user.Email }}';
+    numberInput.value = '{{ user.ContactNumber1 }}'; // Change to ContactNumber2 if needed
+  {% endif %}
+    });
+</script>
+
+
+
+  {% endblock %}
+</div>
+
