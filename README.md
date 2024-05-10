@@ -29,8 +29,5 @@ Access the live version of the PHMC Housing Management System:
 ## Contact 📧
 
 - Yash Singh - yash22589@iiitd.ac.in
-- Project Link: [https://github.com/yourusername/PHMC-HMS](https://github.com/YSULTRA/Prime-House-Maintenance)]
+- Project Link: [Prime House Maintenance HMS](https://github.com/YSULTRA/Prime-House-Maintenance)
 
----
-
-This version of the README includes emojis to add a friendly, engaging touch while keeping the document professional. Adjust the project link and other personal details as necessary to match your actual project information.
