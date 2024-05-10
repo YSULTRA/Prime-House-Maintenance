@@ -29,6 +29,6 @@ Access the live version of the PHMC Housing Management System:
 ## Contact 📧
 
 - Yash Singh - yash22589@iiitd.ac.in
-- Shrey Yadav - shrey22483@iiitd.ac.in
+- Shrey Yadav - shrey22483@iiitd.ac.in/
 - Project Link: [Prime House Maintenance HMS](https://github.com/YSULTRA/Prime-House-Maintenance)
 
